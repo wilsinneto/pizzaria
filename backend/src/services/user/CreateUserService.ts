@@ -1,5 +1,5 @@
 import { hash } from "bcryptjs";
-import prismaClient from "../prisma";
+import prismaClient from "../../prisma";
 
 interface UserRequest {
   name: string;
