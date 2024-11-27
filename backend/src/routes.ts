@@ -28,7 +28,7 @@ router.get("/category", isAuthenticated, new ListaCategoryController().handle);
 router.post(
   "/product",
   isAuthenticated,
-  upload.single("fileNameParameter"),
+  upload.single("file"),
   new CreateProductController().handle
 );
 
