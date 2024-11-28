@@ -4,12 +4,14 @@ import multer from "multer";
 import { CreateUserController } from "./controllers/user/CreateUserController";
 import { AuthUserController } from "./controllers/user/AuthUserController";
 import { DetailUserController } from "./controllers/user/DetailUserController";
-import { isAuthenticated } from "./middlewares/isAuthenticated";
 import { CreateCategoryController } from "./controllers/category/CreateCategoryController";
 import { ListaCategoryController } from "./controllers/category/ListaCategoryController";
 import { CreateProductController } from "./controllers/product/CreateProductController";
-import uploadConfig from "./config/multer";
 import { ListByCategoryController } from "./controllers/product/ListByCategoryController";
+import { CreateOrderController } from "./controllers/order/CreateOrderController";
+
+import { isAuthenticated } from "./middlewares/isAuthenticated";
+import uploadConfig from "./config/multer";
 
 const router = Router();
 
@@ -38,5 +40,7 @@ router.get(
   isAuthenticated,
   new ListByCategoryController().handle
 );
+
+router.post("/order", isAuthenticated, new CreateOrderController().handle);
 
 export { router };
