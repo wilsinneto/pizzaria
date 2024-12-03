@@ -27,8 +27,44 @@
     button{
       height: 40px;
       font-size: 16px;
+      background-color: #FF3f4b;
+      border: 0;
+      border-radius: 8px;
+      color: #FFF;
+      font-weight: bold;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.5s;
+    }
+
+    button:hover {
+      transform: scale(1.05);
     }
   }
+}
+
+.input {
+  height: 40px;
+  border: 1px solid #8a8a8a;
+  padding: 0 16px;
+  border-radius: 8px;
+  background-color: #101026;
+  color: #FFF;
+  font-size: 16px;
+}
+
+.input::placeholder {
+  color: rgba(255, 255, 255, 0.700);
+}
+
+.text {
+  color: #FFF;
+  text-decoration: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
 }
 
 @media (max-width: 620px){
