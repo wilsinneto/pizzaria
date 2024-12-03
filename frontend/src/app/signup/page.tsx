@@ -1,9 +1,9 @@
 import Image from "next/image";
-import styles from "./page.module.scss";
-import logoImg from "/public/logo.svg"
 import Link from "next/link";
+import styles from "../page.module.scss";
+import logoImg from "/public/logo.svg";
 
-export default function Page() {
+export default function Signup() {
   return(
     <>
       <div className={styles.containerCenter}>
@@ -13,7 +13,15 @@ export default function Page() {
         />
 
         <section className={styles.login}>
+          <h1>Criando sua conta</h1>
           <form>
+            <input
+              type="text"
+              required
+              name="name"
+              placeholder="Digite seu nome..."
+              className={styles.input}
+            />
             <input
               type="email"
               required
@@ -33,10 +41,10 @@ export default function Page() {
               type="submit"
               className={styles.button}
             >
-              Acessar
+              Cadastrar
             </button>
 
-            <Link href="/signup" className={styles.text}>Não possui uma conta? Cadastre-se</Link>
+            <Link href="/" className={styles.text}>Já possui uma conta? Faça o login</Link>
           </form>
         </section>
       </div>
