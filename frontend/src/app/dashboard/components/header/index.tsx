@@ -3,17 +3,19 @@
 import Link from "next/link"
 import Image from "next/image"
 import { LogOutIcon } from "lucide-react";
-import logoImg from "/public/logo.svg";
-
-import styles from "./styles.module.scss"
 import { deleteCookie } from "cookies-next";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+
+import logoImg from "/public/logo.svg";
+import styles from "./styles.module.scss"
 
 export function Header() {
   const router = useRouter();
 
   async function handleLogout() {
     deleteCookie("session", { path: "/" })
+    toast.success("Logout feito com sucesso!")
 
     router.replace("/")
   }

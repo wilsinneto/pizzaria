@@ -3,6 +3,7 @@
 import { ChangeEvent, useState } from "react";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
+import { toast } from "sonner";
 
 import { Button } from "@/app/dashboard/components/button";
 import { getCookieClient } from "@/lib/CookieClient";
@@ -45,6 +46,7 @@ export function Form({ categories }: Props) {
     const description = formData.get("description")
 
     if (!image || !categoryIndex || !name || !price || !description) {
+      toast.warning("Preencha todos os campos!")
       return
     }
 
@@ -62,7 +64,13 @@ export function Form({ categories }: Props) {
       headers: {
         Authorization: `Bearer ${token}`
       }
+    }).catch((error) => {
+      console.log(error)
+      toast.warning("Falha ao cadastrar esse produto!")
+      return
     })
+
+    toast.success("Produto cadastrado com sucesso!")
   }
 
   return(
