@@ -1,8 +1,9 @@
 'use client'
 
 import { ChangeEvent, useState } from "react";
-import { UploadCloud } from "lucide-react";
+import { useRouter } from "next/navigation";
 import Image from "next/image";
+import { UploadCloud } from "lucide-react";
 import { toast } from "sonner";
 
 import { Button } from "@/app/dashboard/components/button";
@@ -20,6 +21,7 @@ type Props = {
 }
 
 export function Form({ categories }: Props) {
+  const router = useRouter()
   const [image, setImage] = useState<File>()
   const [previewImage, setPreviewImage] = useState("")
 
@@ -30,7 +32,7 @@ export function Form({ categories }: Props) {
       const [image] = files
 
       if (image.type !== 'image/jpeg' && image.type !== 'image/png') {
-        console.log('FORMATO PROIBIDO!!!')
+        toast.warning("Formato não permitido")
         return
       }
 
@@ -71,6 +73,7 @@ export function Form({ categories }: Props) {
     })
 
     toast.success("Produto cadastrado com sucesso!")
+    router.push("/dashboard")
   }
 
   return(
