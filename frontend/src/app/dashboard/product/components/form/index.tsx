@@ -3,8 +3,10 @@
 import { ChangeEvent, useState } from "react";
 import { UploadCloud } from "lucide-react";
 import Image from "next/image";
-import { Button } from "@/app/dashboard/components/button";
 
+import { Button } from "@/app/dashboard/components/button";
+import { getCookieClient } from "@/lib/CookieClient";
+import { api } from "@/services/api";
 import styles from "./styles.module.scss";
 
 type CategoryProps = {
@@ -36,11 +38,38 @@ export function Form({ categories }: Props) {
     }
   }
 
+  async function handleRegisterProduct(formData: FormData) {
+    const categoryIndex = formData.get("category")
+    const name = formData.get("name")
+    const price = formData.get("price")
+    const description = formData.get("description")
+
+    if (!image || !categoryIndex || !name || !price || !description) {
+      return
+    }
+
+    const data = new FormData()
+
+    data.append("file", image)
+    data.append("name", name)
+    data.append("price", price)
+    data.append("description", description)
+    data.append("category_id", categories[Number(categoryIndex)].id)
+
+    const token = getCookieClient()
+
+    await api.post("/product", data, {
+      headers: {
+        Authorization: `Bearer ${token}`
+      }
+    })
+  }
+
   return(
     <main className={styles.container}>
       <h1>Novo produto</h1>
 
-      <form className={styles.form}>
+      <form className={styles.form} action={handleRegisterProduct}>
         <label className={styles.labelImage}>
           <span>
             <UploadCloud size={30} color="#FFF" />
@@ -66,8 +95,8 @@ export function Form({ categories }: Props) {
         </label>
 
         <select name="category">
-          {categories.map(({ id, name }: CategoryProps) => (
-            <option key={id} value={id}>
+          {categories.map(({ id, name }: CategoryProps, index) => (
+            <option key={id} value={index}>
               {name}
             </option>
           ))}
@@ -94,7 +123,7 @@ export function Form({ categories }: Props) {
           name="description"
           placeholder="Digite a descrição do produto"
           required
-        ></textarea>
+        />
 
         <Button name="Cadastrar produto" />
       </form>
