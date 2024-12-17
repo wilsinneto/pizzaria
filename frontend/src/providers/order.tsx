@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { api } from "@/services/api";
 import { getCookieClient } from "@/lib/CookieClient";
 
-interface OrderItemProps {
+export interface OrderItemProps {
   id: string;
   amount: number;
   created_at: Date;
