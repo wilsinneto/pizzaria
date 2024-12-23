@@ -6,8 +6,7 @@ import AuthRoutes from "./auth.routes";
 import { AuthContext } from "../contexts/AuthContext";
 
 function Routes() {
-  const { isAuthenticated } = useContext(AuthContext)
-  let loading = false
+  const { isAuthenticated, loading } = useContext(AuthContext)
 
   if (loading) {
     return(
