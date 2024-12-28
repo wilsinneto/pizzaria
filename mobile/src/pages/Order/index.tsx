@@ -105,7 +105,7 @@ export default function Order() {
         amount
       } as ItemProps
 
-      setItems(oldArray => [...oldArray, payload])  
+      setItems(oldArray => [...oldArray, payload])
     } catch (error) {
       console.log('error', error)
     }
@@ -117,6 +117,18 @@ export default function Order() {
 
   function handleChangeCategory(item: CategoryProps) {
     setCategorySelected(item);
+  }
+
+  async function handleDeleteItem(item_id: string) {
+    await api.delete("/item", {
+      params: {
+        item_id
+      }
+    })
+
+    const removedItem = items.filter(item => item.id !== item_id)
+
+    setItems(removedItem)
   }
 
   return(
@@ -185,7 +197,7 @@ export default function Order() {
         style={{ flex: 1, marginTop: 24 }}
         data={items}
         keyExtractor={(item) => item.id}
-        renderItem={({item}) => <ListItem data={item} />}
+        renderItem={({item}) => <ListItem data={item} deleteItem={handleDeleteItem} />}
       />
 
       <Modal
